@@ -73,6 +73,7 @@ public class MyViewModel extends ViewModel {
         return value;
     }
 
+    //第二种计算方法
     public String mainNumWithNum_1_Tocal(){
         String value = "0";
         if (mainNum.getValue().contains(".") || num[1].contains(".")) {//如果两个数字的其中一个有小数点的话

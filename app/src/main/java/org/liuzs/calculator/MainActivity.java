@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
         //获取数据模型
         myViewModel = new ViewModelProvider(this,new ViewModelProvider.NewInstanceFactory()).get(MyViewModel.class);
 
-
         //事件监听getMainNum()
         myViewModel.getMainNum().observe(this, new Observer<String>() {
             @Override
@@ -266,10 +265,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //计算按钮，基本和加法和乘法的思路是一样的
         binding.buttonEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (myViewModel.sign2.equals("")){
+                if (myViewModel.sign2.equals("")){//当第二个运算符为空时
                     if (!myViewModel.sign1.equals("")){
                         myViewModel.getMainNum().setValue(myViewModel.mainNumWithNum_0_Tocal());
                         if (myViewModel.getMainNum().getValue().contains(".")){
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                         myViewModel.sign1="";
                     }
                 }else {
-                    //如果是像a+b*c
+                    //否则是a+b*c的情况
                     myViewModel.getMainNum().setValue(myViewModel.mainNumWithNum_1_Tocal());
                     myViewModel.num[1]="";
                     myViewModel.sign2="";
