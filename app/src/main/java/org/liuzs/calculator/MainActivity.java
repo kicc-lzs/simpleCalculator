@@ -5,7 +5,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Service;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 
 import org.liuzs.calculator.databinding.ActivityMainBinding;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("1");
+                vibratorClick();
             }
         });
 
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("2");
+                vibratorClick();
             }
         });
 
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("3");
+                vibratorClick();
             }
         });
 
@@ -70,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("4");
+                vibratorClick();
             }
         });
 
@@ -77,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("5");
+                vibratorClick();
             }
         });
 
@@ -84,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("6");
+                vibratorClick();
             }
         });
 
@@ -91,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("7");
+                vibratorClick();
             }
         });
 
@@ -98,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("8");
+                vibratorClick();
             }
         });
 
@@ -105,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("9");
+                vibratorClick();
             }
         });
 
@@ -112,12 +123,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myViewModel.setMainNum("0");
+                vibratorClick();
             }
         });
 
         binding.buttonPoint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 if (!myViewModel.havePoint){//true执行
                     myViewModel.getMainNum().setValue(myViewModel.getMainNum().getValue()+".");
                     myViewModel.havePoint = true;//当没有小数点的时候加上小数点，然后再按小数点的时候不执行
@@ -129,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 if (myViewModel.sign1.equals("")){
                     myViewModel.sign1="+";
                     myViewModel.num[0] = myViewModel.getMainNum().getValue();
@@ -162,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 if (myViewModel.sign1.equals("")){
                     myViewModel.sign1="-";
                     myViewModel.num[0] = myViewModel.getMainNum().getValue();
@@ -188,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 if (myViewModel.sign1.equals("")){//true执行
                    // System.out.println("乘法：第一个运算符是为空的情况，显示第一个 x 号");
                     myViewModel.sign1="x";
@@ -225,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 if (myViewModel.sign1.equals("")){//true执行
                     myViewModel.sign1="÷";
                     myViewModel.num[0] = myViewModel.getMainNum().getValue();
@@ -256,6 +273,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonClean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 myViewModel.sign2="";
                 myViewModel.num[1]="";
                 myViewModel.sign1="";
@@ -269,6 +287,7 @@ public class MainActivity extends AppCompatActivity {
         binding.buttonEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 if (myViewModel.sign2.equals("")){//当第二个运算符为空时
                     if (!myViewModel.sign1.equals("")){
                         myViewModel.getMainNum().setValue(myViewModel.mainNumWithNum_0_Tocal());
@@ -301,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
         binding.ibTuige.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vibratorClick();
                 if (!myViewModel.getMainNum().getValue().equals("0")){
                     myViewModel.getMainNum().setValue(myViewModel.getMainNum().getValue().substring(0,myViewModel.getMainNum().getValue().length()-1));
                     if (myViewModel.getMainNum().getValue().equals("")){
@@ -309,6 +329,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //按钮振动的方法，1000表示振动1秒，这里的50那就是0.05秒.-1表示不重复振动，其他数字表示会振动
+    private void vibratorClick() {
+        Vibrator vibrator=(Vibrator)getSystemService(Service.VIBRATOR_SERVICE);
+        vibrator.vibrate(new long[]{0,50},-1);
     }
 
 }
